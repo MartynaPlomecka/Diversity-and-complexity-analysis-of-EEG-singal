@@ -1,3 +1,5 @@
+from __future__ import division
+
 import numpy as np
 from scipy.io import loadmat
 from collections import Counter
@@ -40,7 +42,8 @@ def MIG(ts):
 
         def information_gain(i, j):
             try:
-                return math.log(1 / transitions_prob.get((i, j), 0.), 2)
+                i_j_prob = transitions_prob.get((i, j), 0.) / states_prob.get(i)
+                return math.log(1 / i_j_prob, 2)
             except ZeroDivisionError:
                 return 0
         s = 0
